@@ -8,6 +8,7 @@ class Item:
     pay_rate = 1.0
     all = []
 
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
@@ -19,6 +20,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
+        self.all.append(self)
 
     def calculate_total_price(self) -> float:
         """
@@ -49,17 +51,18 @@ class Item:
 
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
         """
 
-        with open(r"C:\Users\Admin\PycharmProjects\electronics-shop-project\src\items.csv", newline='') as csvfile:
+        with open(path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             cls.all.clear()
             for row in reader:
-                cls.all.append(cls(row['name'], row['price'], row['quantity']))
-        return cls.all
+                item = (cls(row['name'], row['price'], row['quantity']))
+
+
 
 
     @staticmethod
