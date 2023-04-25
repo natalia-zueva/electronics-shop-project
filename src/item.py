@@ -37,7 +37,6 @@ class Item:
         """
         self.price *= self.pay_rate
 
-
     @property
     def name(self):
         return self.__name
@@ -47,23 +46,20 @@ class Item:
         if len(name) <= 10:
             self.__name = name
         else:
-            print('Длина наименования товара превышает 10 символов')
-
+            raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
-    def instantiate_from_csv(cls, path):
+    def instantiate_from_csv(cls):
         """
         Класс-метод, инициализирующий экземпляры класса `Item` данными из файла _src/items.csv
         """
+        path = r"..\src\items.csv"
 
         with open(path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             cls.all.clear()
-            for row in reader:
+            for row in reader:зн
                 item = (cls(row['name'], row['price'], row['quantity']))
-
-
-
 
     @staticmethod
     def string_to_number(num):

@@ -18,15 +18,17 @@ def test_apply_discount():
     item2 = Item("Ноутбук", 20000, 5)
     assert item2.price == 20000
 
+
 def test_name():
     item = Item('Смартфон', 10000, 5)
-    assert item.name == "Смартфон"
-#     item = Item('СуперСмартфон', 10000, 5)
-#     assert print('Длина наименования товара превышает 10 символов')
+    item.name = "Телефон"
+    assert item.name == "Телефон"
+    with pytest.raises(Exception):
+        item.name = "Супер_Телефон"
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv(r"C:\Users\Admin\PycharmProjects\electronics-shop-project\src\items.csv")
+    Item.instantiate_from_csv()
     assert len(Item.all) == 5
 
 
