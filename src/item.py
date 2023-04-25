@@ -58,8 +58,9 @@ class Item:
         with open(path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             cls.all.clear()
-            for row in reader:зн
+            for row in reader:
                 item = (cls(row['name'], row['price'], row['quantity']))
+
 
     @staticmethod
     def string_to_number(num):
@@ -67,13 +68,3 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(num))
-
-
-
-
-
-
-
-
-
-
