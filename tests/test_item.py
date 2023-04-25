@@ -3,6 +3,7 @@
 from src.item import Item
 import pytest
 
+
 def test__repr__():
     item = Item("Смартфон", 10000, 20)
     assert repr(item) == "Item('Смартфон', 10000, 20)"
