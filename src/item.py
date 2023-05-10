@@ -21,6 +21,7 @@ class Item:
         self.price = price
         self.quantity = quantity
         self.all.append(self)
+        super().__init__()
 
 
     def __repr__(self):
@@ -87,3 +88,5 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(num))
+
+
