@@ -50,12 +50,16 @@ def test_name():
 def test_instantiate_from_csv():
     Item.instantiate_from_csv()
     assert len(Item.all) == 5
+    assert
 
 
 def test_string_to_number():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('5.5') == 5
+
+
+
 
 
 

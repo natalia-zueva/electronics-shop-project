@@ -1,5 +1,9 @@
 import csv
 
+class InstantiateCSVError(KeyError):
+    pass
+
+
 
 class Item:
     """
@@ -73,13 +77,22 @@ class Item:
         """
         Инициализирует экземпляры класса `Item` данными из файла _src/items.csv
         """
-        path = r"..\src\items.csv"
+        path = r"../src/items.csv"
 
-        with open(path, newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            cls.all.clear()
-            for row in reader:
-                item = (cls(row['name'], row['price'], row['quantity']))
+        try:
+            with open(path, newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                cls.all.clear()
+                for row in reader:
+                    item = (cls(row['name'], row['price'], row['quantity']))
+
+        except FileNotFoundError:
+            print('FileNotFoundError: Отсутствует файл items.csv')
+        except KeyError:
+            print('InstantiateCSVError: Файл item.csv поврежден')
+
+
+
 
 
     @staticmethod
@@ -88,5 +101,8 @@ class Item:
         Статический метод, возвращающий число из числа-строки
         """
         return int(float(num))
+
+
+
 
 
