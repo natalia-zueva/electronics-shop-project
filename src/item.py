@@ -1,8 +1,8 @@
 import csv
 
-class InstantiateCSVError(KeyError):
-    pass
-
+class InstantiateCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = 'Файл items.csv поврежден'
 
 
 class Item:
@@ -73,23 +73,23 @@ class Item:
 
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, path=r"../src/items.csv"):
         """
         Инициализирует экземпляры класса `Item` данными из файла _src/items.csv
         """
-        path = r"../src/items.csv"
 
         try:
             with open(path, newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 cls.all.clear()
-                for row in reader:
-                    item = (cls(row['name'], row['price'], row['quantity']))
-
+                try:
+                    for row in reader:
+                        item = (cls(row['name'], row['price'], row['quantity']))
+                except KeyError:
+                    raise InstantiateCSVError('Файл items.csv поврежден')
         except FileNotFoundError:
-            print('FileNotFoundError: Отсутствует файл items.csv')
-        except KeyError:
-            print('InstantiateCSVError: Файл item.csv поврежден')
+            raise FileNotFoundError('Отсутствует файл items.csv')
+
 
 
 
@@ -103,6 +103,15 @@ class Item:
         return int(float(num))
 
 
-
-
-
+        #
+        #
+        # try:
+        #     with open(path, newline='') as csvfile:
+        #         reader = csv.DictReader(csvfile)
+        #         try:
+        #             for row in reader:
+        #                 cls(row['name'], row['price'], row['quantity'])
+        #         except KeyError:
+        #             raise InstantiateCSVError("item.csv file is corrupted")
+        # except FileNotFoundError:
+        #     raise FileNotFoundError("file items.csv does not exist or bad directory")
